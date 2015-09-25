@@ -14,11 +14,11 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(QIcon(":/ico/icoSherly.png")); //set Sher.ly ico to main window
 
     ui->setupUi(this);
-    browser();
+    browser(); // calling browser constructor
 
     ui->editSqlQuery->setPlaceholderText("ex.: SELECT name FROM employee WHERE salary = null"); //example query write to help
     ui->actualDbPath->setText(""); // initial clear of information about opened file
-
+    statusBar()->showMessage(tr("Load DB file")); // set first information for user
 
 }
 
@@ -54,15 +54,18 @@ void MainWindow::on_actionOpen_triggered()
 //
 
    ui->actualDbPath->setText(sqlfilename);
+   statusBar()->showMessage(actualstatus); // Path status info | Use always after openDb();
 }
 
 void MainWindow::on_editSqlQuery_editingFinished()
 {
     QString querycommand=ui->editSqlQuery->text();
 
-    execDb(querycommand);
 
-   // ui->tableView->setModel(query->);
+    execDb(querycommand);
+    statusBar()->showMessage(actualstatus); // Query status info | Use always after execDb();
+
+    // ui->tableView->setModel(query->);
 
 }
 

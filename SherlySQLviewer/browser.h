@@ -10,7 +10,8 @@ public:
     browser();
     QSqlDatabase mydb;
     QSqlQueryModel * model;
-    QSqlQuery* query;
+    QSqlQuery * query;
+    QString actualstatus;
 
 
 

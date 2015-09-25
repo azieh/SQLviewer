@@ -29,7 +29,7 @@
      <rect>
       <x>30</x>
       <y>30</y>
-      <width>61</width>
+      <width>71</width>
       <height>20</height>
      </rect>
     </property>
@@ -40,9 +40,9 @@
    <widget class="QLineEdit" name="editSqlQuery">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>120</x>
       <y>30</y>
-      <width>751</width>
+      <width>720</width>
       <height>20</height>
      </rect>
     </property>
@@ -52,7 +52,7 @@
      <rect>
       <x>30</x>
       <y>10</y>
-      <width>151</width>
+      <width>190</width>
       <height>20</height>
      </rect>
     </property>
@@ -63,9 +63,9 @@
    <widget class="QLabel" name="actualDbPath">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>230</x>
       <y>10</y>
-      <width>661</width>
+      <width>610</width>
       <height>20</height>
      </rect>
     </property>
@@ -80,7 +80,7 @@
      <x>0</x>
      <y>0</y>
      <width>862</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
