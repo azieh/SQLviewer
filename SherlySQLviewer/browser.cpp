@@ -10,8 +10,12 @@ Browser::browser()
 
     mydb=QSqlDatabase::addDatabase("QSQLITE");
     mydb.setHostName("localhost");
-    model = new QSqlQueryModel();
     query = new QSqlQuery(mydb);
+    tableview=new QTableView();
+    model = new QSqlQueryModel(tableview);
+
+
+
 
     return true;
 }
@@ -56,4 +60,6 @@ void Browser::execDb(QString & command)
         actualstatus="Query has executed successfully";
     }
 
+    tableview->setModel(model);
+    tableview->setAlternatingRowColors(true);
 }

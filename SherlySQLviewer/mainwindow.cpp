@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     browser(); // calling browser constructor
 
     ui->editSqlQuery->setPlaceholderText("ex.: SELECT name FROM employee WHERE salary = null"); //example query write to help
-    ui->actualDbPath->setText(""); // initial clear of information about opened file
+    ui->actualDbPath->setText("..."); // initial clear of information about opened file
     statusBar()->showMessage(tr("Load DB file")); // set first information for user
 
 }
@@ -42,30 +42,35 @@ void MainWindow::on_editSqlQuery_textEdited()
 
 void MainWindow::on_actionOpen_triggered()
 {
-        sqlfilename=QFileDialog::getOpenFileName(
+    sqlfilename=QFileDialog::getOpenFileName(
                this,
                tr("Open file"),
-               "C://",
-               //"SQLite (*.SQLite);;db (*.db)"
-               "ALL files (*.*)"
+               "C://", // default open directory
+               "db (*.db);;SQLite (*.SQLite)" // default posible file extension
                );
+    ui->actualDbPath->setText(sqlfilename); //inform user about actual DB directory
+
 //calling function from Browser class
-   openDb(sqlfilename);
+    openDb(sqlfilename);
 //
 
-   ui->actualDbPath->setText(sqlfilename);
-   statusBar()->showMessage(actualstatus); // Path status info | Use always after openDb();
+
+    statusBar()->showMessage(actualstatus); // Path status info | Use always after openDb();
 }
 
 void MainWindow::on_editSqlQuery_editingFinished()
 {
-    QString querycommand=ui->editSqlQuery->text();
+    QString querycommand=ui->editSqlQuery->text(); //read query command from window
 
-
-    execDb(querycommand);
+    execDb(querycommand); //execute query command
     statusBar()->showMessage(actualstatus); // Query status info | Use always after execDb();
 
-    // ui->tableView->setModel(query->);
+    model->setQuery(*query);
+    ui->tableView->setModel(model);
+
+
+
+
 
 }
 

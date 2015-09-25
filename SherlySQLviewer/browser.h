@@ -1,8 +1,11 @@
 #ifndef BROWSER_H
 #define BROWSER_H
-#include <QWidget>
 #include <QSqlTableModel>
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QtWidgets>
+#include <QtSql>
+#include <QMessageBox>
 
 class Browser
 {
@@ -11,6 +14,7 @@ public:
     QSqlDatabase mydb;
     QSqlQueryModel * model;
     QSqlQuery * query;
+    QTableView * tableview;
     QString actualstatus;
 
 
