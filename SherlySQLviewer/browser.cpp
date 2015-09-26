@@ -14,9 +14,6 @@ Browser::browser()
     tableview=new QTableView();
     model = new QSqlQueryModel(tableview);
 
-
-
-
     return true;
 }
 
@@ -43,11 +40,17 @@ void Browser::execDb(QString & command)
 
 /// TEMP CODE TO CREATE SOME DATABASE ------------------------------------------------------------------------
 //    query->prepare("create table person (id INTIGER primary key, "
-//                   "firstname varchar(20), lastname varchar(20))");
-
-//    query->prepare("INSERT INTO person(id, firstname, lastname) VALUES(:id, :firstname, :lastname)");
+//                   "firstname varchar(20), lastname varchar(20), number intiger)");
+//    int i=1;
+//    for (i=1; i<=100; i++)
+//    {
+//        query->clear();
+//    query->prepare("INSERT INTO person(id, firstname, lastname, number) VALUES(:id, :firstname, :lastname, :number)");
 //    query->bindValue(":firstname", "C");
 //    query->bindValue(":lastname", "D");
+//    query->bindValue(":number", i);
+//    query->exec();
+//    }
 // ------------------------------------------------------------------------------------------------------------
 
 
@@ -60,6 +63,5 @@ void Browser::execDb(QString & command)
         actualstatus="Query has executed successfully";
     }
 
-    tableview->setModel(model);
-    tableview->setAlternatingRowColors(true);
+
 }

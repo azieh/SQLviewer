@@ -20,14 +20,11 @@ public:
 private slots:
     void on_actionExit_triggered();
 
-
-
-    void on_editSqlQuery_textEdited();
-
     void on_actionOpen_triggered();
 
-    void on_editSqlQuery_editingFinished();
+    void on_pushClearButton_clicked();
 
+    void on_pushQueryButton_clicked();
 
 private:
     Ui::MainWindow *ui;

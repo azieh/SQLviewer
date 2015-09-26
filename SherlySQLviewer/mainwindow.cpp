@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     browser(); // calling browser constructor
 
+    tableview->setModel(model);
+    tableview->setAlternatingRowColors(true);
+
     ui->editSqlQuery->setPlaceholderText("ex.: SELECT name FROM employee WHERE salary = null"); //example query write to help
     ui->actualDbPath->setText("..."); // initial clear of information about opened file
     statusBar()->showMessage(tr("Load DB file")); // set first information for user
@@ -30,14 +33,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionExit_triggered()
 {
     exit(0);
-}
-
-
-void MainWindow::on_editSqlQuery_textEdited()
-{
-
-
-
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -58,7 +53,13 @@ void MainWindow::on_actionOpen_triggered()
     statusBar()->showMessage(actualstatus); // Path status info | Use always after openDb();
 }
 
-void MainWindow::on_editSqlQuery_editingFinished()
+
+void MainWindow::on_pushClearButton_clicked()
+{
+    ui->editSqlQuery->clear();
+}
+
+void MainWindow::on_pushQueryButton_clicked()
 {
     QString querycommand=ui->editSqlQuery->text(); //read query command from window
 
@@ -67,10 +68,4 @@ void MainWindow::on_editSqlQuery_editingFinished()
 
     model->setQuery(*query);
     ui->tableView->setModel(model);
-
-
-
-
-
 }
-

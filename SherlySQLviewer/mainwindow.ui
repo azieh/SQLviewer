@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>935</width>
-    <height>621</height>
+    <height>701</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,13 +22,13 @@
   <property name="minimumSize">
    <size>
     <width>935</width>
-    <height>621</height>
+    <height>701</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>935</width>
-    <height>621</height>
+    <height>701</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -53,20 +53,20 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>10</y>
-      <width>931</width>
-      <height>481</height>
+      <x>-1</x>
+      <y>0</y>
+      <width>937</width>
+      <height>592</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <property name="sizeConstraint">
-      <enum>QLayout::SetNoConstraint</enum>
+      <enum>QLayout::SetMaximumSize</enum>
      </property>
      <item>
       <layout class="QFormLayout" name="formLayout_5">
        <property name="sizeConstraint">
-        <enum>QLayout::SetDefaultConstraint</enum>
+        <enum>QLayout::SetMinimumSize</enum>
        </property>
        <property name="fieldGrowthPolicy">
         <enum>QFormLayout::ExpandingFieldsGrow</enum>
@@ -74,11 +74,14 @@
        <property name="rowWrapPolicy">
         <enum>QFormLayout::WrapLongRows</enum>
        </property>
+       <property name="labelAlignment">
+        <set>Qt::AlignCenter</set>
+       </property>
        <property name="formAlignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
        </property>
        <property name="horizontalSpacing">
-        <number>13</number>
+        <number>8</number>
        </property>
        <property name="verticalSpacing">
         <number>7</number>
@@ -90,10 +93,10 @@
         <number>9</number>
        </property>
        <property name="rightMargin">
-        <number>11</number>
+        <number>10</number>
        </property>
        <property name="bottomMargin">
-        <number>11</number>
+        <number>0</number>
        </property>
        <item row="0" column="0">
         <widget class="QLabel" name="staticActualOpenDb">
@@ -209,20 +212,52 @@
          </property>
         </widget>
        </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="spacing">
+          <number>17</number>
+         </property>
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="pushClearButton">
+           <property name="maximumSize">
+            <size>
+             <width>75</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Clear</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushQueryButton">
+           <property name="maximumSize">
+            <size>
+             <width>75</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Push</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>3</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item>
       <widget class="QTableView" name="tableView">
@@ -238,6 +273,12 @@
          <height>1000</height>
         </size>
        </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::ActionsContextMenu</enum>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
       </widget>
      </item>
     </layout>
@@ -249,7 +290,7 @@
      <x>0</x>
      <y>0</y>
      <width>935</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
