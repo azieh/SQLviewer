@@ -10,7 +10,27 @@
 class Browser
 {
 public:
-    browser();
+
+
+    Browser()
+    {
+        /*******************************************/
+        /*Sequence of creating instans is important*/
+        /*******************************************/
+
+        mydb=QSqlDatabase::addDatabase("QSQLITE");
+        mydb.setHostName("localhost");
+        query = new QSqlQuery(mydb);
+        tableview=new QTableView();
+        model = new QSqlQueryModel(tableview);
+
+    }
+
+    ~Browser()
+    {
+        mydb.close();
+    }
+
     QSqlDatabase mydb;
     QSqlQueryModel * model;
     QSqlQuery * query;
@@ -21,6 +41,9 @@ public:
 
     void execDb(QString & command);
     void openDb(QString & path);
+    void execQuery();
+    void createDb();
+    void insertSomeIntoDb();
 
 
 
