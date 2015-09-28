@@ -16,12 +16,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    browser.cpp
+    browser.cpp \
+    editstrategysettings.cpp
 
 HEADERS  += mainwindow.h \
-    browser.h
+    browser.h \
+    editstrategysettings.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    editstrategysettings.ui
 
 RESOURCES += \
     res.qrc

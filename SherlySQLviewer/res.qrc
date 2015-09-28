@@ -3,5 +3,6 @@
         <file>icoSherly.png</file>
         <file>close_sq.ico</file>
         <file>open_256.png</file>
+        <file>settings.png</file>
     </qresource>
 </RCC>

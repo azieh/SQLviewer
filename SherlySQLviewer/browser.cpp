@@ -2,7 +2,7 @@
 #include <QtWidgets>
 #include <QtSql>
 #include <QMessageBox>
-    void Browser::execDb(QString & command)
+    void Browser::execDb(const QString & command)
     {
         query->clear(); // always clear query at begining!!!!!!!!
 
@@ -73,5 +73,11 @@
 
             }
      }
+
+
+    void Browser::setSettings(int strategy)
+    {
+
+    }
 
 

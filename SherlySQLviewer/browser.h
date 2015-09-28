@@ -39,7 +39,7 @@ public:
 
 
 
-    void execDb(QString & command);
+    void execDb(const QString & command);
     void openDb(QString & path);
     void execQuery();
     void createDb();
@@ -48,6 +48,12 @@ public:
 
 
 private:
+
+signals:
+    void settingsChanged(int newstrategy);
+
+public slots:
+    void setSettings(int strategy);
 
 
 };
