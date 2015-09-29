@@ -22,7 +22,10 @@ public:
         mydb.setHostName("localhost");
         query = new QSqlQuery(mydb);
         tableview=new QTableView();
-        model = new QSqlQueryModel(tableview);
+        model = new QSqlTableModel(tableview);
+
+
+
 
     }
 
@@ -32,13 +35,16 @@ public:
     }
 
     QSqlDatabase mydb;
-    QSqlQueryModel * model;
+    QSqlTableModel * model;
     QSqlQuery * query;
     QTableView * tableview;
-    QSqlTableModel * sqltablemodel;
+    QStringList tableslist;
+    QStringListModel * tableslistmodel;
+
 
 
     QString actualstatus;
+    QString currenttable;
 
 
     void execDb(const QString & command);

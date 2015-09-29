@@ -7,7 +7,8 @@ EditStrategySettings::EditStrategySettings(QWidget *parent) :
     ui(new Ui::EditStrategySettings)
 {
     ui->setupUi(this);
-
+    ui->radioManualSubmit->setChecked(true);
+    on_buttonBox_accepted();
 }
 
 EditStrategySettings::~EditStrategySettings()
@@ -41,12 +42,16 @@ void EditStrategySettings::setSettingsSlot(int strategy)
     {
 
     case 1: ui->radioFieldChange->setChecked(true);
+            return;
 
     case 2: ui->radioRowChange->setChecked(true);
+            return;
 
     case 3: ui->radioManualSubmit->setChecked(true);
+            return;
 
     default: ui->radioManualSubmit->setChecked(true);
+            return;
 
     }
 }

@@ -4,9 +4,9 @@
 #include <QMessageBox>
     void Browser::execDb(const QString & command)
     {
-        query->clear(); // always clear query at begining!!!!!!!!
-
-        query->prepare(command); //prepare SQL command
+        model->setTable(currenttable);
+        if (!command.isEmpty())
+        model->setFilter(command);
 
         execQuery();
     }
@@ -24,6 +24,8 @@
             else
               actualstatus="DB was loaded successfully";
 
+            tableslist = mydb.tables(QSql::Tables);
+            tableslistmodel = new QStringListModel(tableslist);
 
     }
 
@@ -31,9 +33,9 @@
     void Browser::execQuery()
     {
         /* Execute query sequence */
-            if(!query->exec()){ // you can use query->exec() only once after clearing query
-                qWarning() << "Query error after execute command:" << query->lastError().text();
-                actualstatus="Query error: "+query->lastError().text();
+            if(!model->select()){ // you can use model->select() only once after clearing query
+                qWarning() << "Query error after execute command:" << model->lastError().text();
+                actualstatus="Query error: "+model->lastError().text();
             }
             else{
                 qWarning() << "Query has executed successfully";

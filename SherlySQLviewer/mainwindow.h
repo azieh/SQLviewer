@@ -28,6 +28,8 @@ private:
 
     int _radioselectedstrategy;
     bool _openwindow;
+    int strategysetting;
+
 
 signals:
 
@@ -43,14 +45,15 @@ private slots:
 
     void on_actionOpen_triggered();
 
-    void on_pushClearButton_clicked();
+    void on_pushPushButton_clicked();
 
-    void on_pushQueryButton_clicked();
+    void on_pushCommitButton_clicked();
 
     void on_actionSettings_triggered();
 
+    void on_checkReadOnly_clicked();
 
-
+    void on_listView_clicked();
 };
 
 #endif // MAINWINDOW_H
