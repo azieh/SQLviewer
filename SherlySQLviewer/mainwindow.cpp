@@ -126,12 +126,14 @@ void MainWindow::on_checkReadOnly_clicked()
     if (ui->checkReadOnly->isChecked())
     {
         ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         ui->pushCommitButton->setVisible(false);
     }
 
     if (!ui->checkReadOnly->isChecked())
     {
         ui->tableView->setEditTriggers(QAbstractItemView::DoubleClicked);
+        ui->listView->setEditTriggers(QAbstractItemView::DoubleClicked);
         if(strategysetting!=3)
             ui->pushCommitButton->setVisible(false);
         else
