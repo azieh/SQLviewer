@@ -35,8 +35,10 @@ public:
     QSqlQueryModel * model;
     QSqlQuery * query;
     QTableView * tableview;
-    QString actualstatus;
+    QSqlTableModel * sqltablemodel;
 
+
+    QString actualstatus;
 
 
     void execDb(const QString & command);
@@ -45,15 +47,6 @@ public:
     void createDb();
     void insertSomeIntoDb();
 
-
-
-private:
-
-signals:
-    void settingsChanged(int newstrategy);
-
-public slots:
-    void setSettings(int strategy);
 
 
 };

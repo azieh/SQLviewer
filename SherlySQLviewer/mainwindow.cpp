@@ -8,24 +8,20 @@
 #include <QMessageBox>
 //
 
-MainWindow::MainWindow(Browser* browser, EditStrategySettings* settings,  QWidget *parent) :
+MainWindow::MainWindow(Browser* browser,  QWidget *parent) :
     QMainWindow(parent),
     _browser( browser ),
-    _settings ( settings ),
     ui(new Ui::MainWindow)
 {
     setWindowIcon(QIcon(":/ico/icoSherly.png")); //set Sher.ly ico to main window
 
     ui->setupUi(this);
 
-    ui->tableView->setAlternatingRowColors(true);
+    ui->tableView->setAlternatingRowColors(true); //set colours of tableview
 
-    ui->editSqlQuery->setPlaceholderText("ex.: SELECT name FROM employee WHERE salary = null"); //example query write to help
-    ui->actualDbPath->setText("..."); // initial clear of information about opened file
+    ui->editSqlQuery->setPlaceholderText("ex.: ... WHERE salary = null"); //example query write to help
 
     statusBar()->showMessage(tr("Load DB file")); // set first information for user
-
-
 
 }
 
@@ -47,12 +43,9 @@ void MainWindow::on_actionOpen_triggered()
                "C://", // default open directory
                "db (*.db);;SQLite (*.SQLite)" // default posible file extension
                );
-    ui->actualDbPath->setText(sqlfilename); //inform user about actual DB directory
+    setWindowTitle("SQLviewer:  "+sqlfilename); //inform user about actual DB directory
 
-//calling function from Browser class
-    _browser->openDb(sqlfilename);
-
-
+    _browser->openDb(sqlfilename); //calling function from Browser class
 
     statusBar()->showMessage(_browser->actualstatus); // Path status info | Use always after openDb();
 }
@@ -65,16 +58,26 @@ void MainWindow::on_pushClearButton_clicked()
 
 void MainWindow::on_pushQueryButton_clicked()
 {
-    QString querycommand=ui->editSqlQuery->text(); //read query command from window
+      QString querycommand=ui->editSqlQuery->text(); //read query command from window
 
       _browser->execDb(querycommand); //execute query command
       statusBar()->showMessage(_browser->actualstatus); // Query status info | Use always after execDb();
 
-      _browser->model->setQuery(*_browser->query);
-      ui->tableView->setModel(_browser->model);
+      _browser->model->setQuery(*_browser->query); // Creating model from query
+      ui->tableView->setModel(_browser->model); // Update tableview
 }
 
 void MainWindow::on_actionSettings_triggered()
 {
-     _settings->show();
+     emit openSettingsWindowSignal(); // Signal to open window in editstrategysettings.ui
 }
+
+
+/************* CONNECT SIGNALS AND SLOTS **************************/
+void MainWindow::setSettingsSlot(int strategy)
+{
+    qWarning() << "Strategy" << strategy;
+
+}
+
+/******* CONNENCT END OF SIGNALS AND SLOTS **************************/

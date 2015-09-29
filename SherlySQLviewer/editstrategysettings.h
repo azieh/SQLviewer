@@ -23,18 +23,21 @@ public:
 
     int strategy() const { return _radioselectedstrategy; }
 
+private:
+    int _radioselectedstrategy;
 
 signals:
-    void settingsChanged(int newstrategy);
+    void setSettingsSignal(int newstrategy);
 
 public slots:
-    void setSettings(int strategy);
+    void setSettingsSlot(int strategy);
+    void openSettingsWindowSlot();
 
 private slots:
     void on_buttonBox_accepted();
 
-private:
-    int _radioselectedstrategy;
+
+
 
 };
 

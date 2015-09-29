@@ -20,9 +20,9 @@
 
         // Information for user about openDB file status
             if (!mydb.open())
-              actualstatus=path+ "<- Cannot open that file | Error: " +  mydb.lastError().text();
+              actualstatus="Cannot open DB | Error: " +  mydb.lastError().text();
             else
-              actualstatus=path+ "<- Was loaded OK";
+              actualstatus="DB was loaded successfully";
 
 
     }
@@ -73,11 +73,5 @@
 
             }
      }
-
-
-    void Browser::setSettings(int strategy)
-    {
-
-    }
 
 

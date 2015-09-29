@@ -15,10 +15,28 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Browser* _browser, EditStrategySettings* _settings, QWidget *parent = 0);
+    explicit MainWindow(Browser* _browser, QWidget *parent = 0);
     ~MainWindow();
     QString sqlfilename;
 
+    int strategy() const { return _radioselectedstrategy; }
+
+private:
+
+    Browser* _browser;
+    Ui::MainWindow *ui;
+
+    int _radioselectedstrategy;
+    bool _openwindow;
+
+signals:
+
+    void setSettingsSignal(int newstrategy);
+    void openSettingsWindowSignal();
+
+public slots:
+
+    void setSettingsSlot(int strategy);
 
 private slots:
     void on_actionExit_triggered();
@@ -31,11 +49,6 @@ private slots:
 
     void on_actionSettings_triggered();
 
-private:
-
-    Browser* _browser;
-    EditStrategySettings* _settings;
-    Ui::MainWindow *ui;
 
 
 };
