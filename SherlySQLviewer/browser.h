@@ -7,51 +7,28 @@
 #include <QtSql>
 #include <QMessageBox>
 
+//#define MY_DELETE(x) delete x; x = nullptr;
+
 class Browser
 {
 public:
-
-
-    Browser()
-    {
-        /*******************************************/
-        /*Sequence of creating instans is important*/
-        /*******************************************/
-
-        mydb=QSqlDatabase::addDatabase("QSQLITE");
-        mydb.setHostName("localhost");
-        query = new QSqlQuery(mydb);
-        tableview=new QTableView();
-        model = new QSqlTableModel(tableview);
-
-
-
-
-    }
-
-    ~Browser()
-    {
-        mydb.close();
-    }
+    Browser();
+    ~Browser();
 
     QSqlDatabase mydb;
-    QSqlTableModel * model;
-    QSqlQuery * query;
+    QSqlTableModel * tableviewmodel;
+    QStringListModel * tableslistmodel;
     QTableView * tableview;
     QStringList tableslist;
-    QStringListModel * tableslistmodel;
-
-
 
     QString actualstatus;
     QString currenttable;
 
-
     void execDb(const QString & command);
     void openDb(QString & path);
     void execQuery();
-    void createDb();
-    void insertSomeIntoDb();
+    void openDbStatus();
+    void strategySetting(int strategysetting);
 
 
 

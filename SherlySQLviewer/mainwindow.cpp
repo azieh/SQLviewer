@@ -25,9 +25,10 @@ MainWindow::MainWindow(Browser* browser,  QWidget *parent) :
 
     statusBar()->showMessage(tr("Load DB file")); // set first information for user
 
-    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    setSettingsSlot(3);
+    _strategysetting=3;
+    setSettingsSlot(_strategysetting);
 
 
 }
@@ -64,16 +65,15 @@ void MainWindow::on_pushPushButton_clicked()
 {
     QString querycommand=ui->editSqlQuery->text(); //read query command from window
 
-
     _browser->execDb(querycommand); //execute query command
     statusBar()->showMessage(_browser->actualstatus); // Query status info | Use always after execDb();
-
-    ui->tableView->setModel(_browser->model); // Update tableview
+    updateTableModel();
 }
 
 void MainWindow::on_pushCommitButton_clicked()
 {
-    _browser->model->submitAll();
+    if (_browser->tableviewmodel!=nullptr)
+    _browser->tableviewmodel->submitAll();
 }
 
 void MainWindow::on_actionSettings_triggered()
@@ -86,42 +86,21 @@ void MainWindow::on_listView_clicked()
 
    _browser->currenttable=ui->listView->currentIndex().data().toString();
 
+   _browser->execDb("");
+   statusBar()->showMessage(_browser->actualstatus); // Query status info | Use always after execDb();
+
+   updateTableModel();
 
    ui->groupBoxQueryWhere->setTitle("SELECT * FROM "+_browser->currenttable+" WHERE"); //tool to help user understand query
 
 }
 
-
-/************* CONNECT SIGNALS AND SLOTS **************************/
-void MainWindow::setSettingsSlot(int strategy)
+void MainWindow::on_checkReadOnly_clicked()
 {
-    strategysetting=strategy; //copy int from slot
-    on_checkReadOnly_clicked();
-    switch (strategysetting)
-    {
-
-    case 1: _browser->model->setEditStrategy(QSqlTableModel::OnFieldChange);
-            ui->labelStrategy->setText("OnFieldChange");
-            qWarning() << "1";
-            return;
-
-    case 2: _browser->model->setEditStrategy(QSqlTableModel::OnRowChange);
-            ui->labelStrategy->setText("OnRowChange");
-            qWarning() << "2";
-            return;
-
-    case 3: _browser->model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-            ui->labelStrategy->setText("OnManualSubmit");
-            qWarning() << "3";
-            return;
-    }
-    on_checkReadOnly_clicked();
-
+ setViewSettings(_strategysetting);
 }
 
-/******* CONNENCT END OF SIGNALS AND SLOTS **************************/
-
-void MainWindow::on_checkReadOnly_clicked()
+void MainWindow::setViewSettings(int& strategy)
 {
     if (ui->checkReadOnly->isChecked())
     {
@@ -134,13 +113,46 @@ void MainWindow::on_checkReadOnly_clicked()
     {
         ui->tableView->setEditTriggers(QAbstractItemView::DoubleClicked);
         ui->listView->setEditTriggers(QAbstractItemView::DoubleClicked);
-        if(strategysetting!=3)
+        if(strategy!=3)
             ui->pushCommitButton->setVisible(false);
         else
             ui->pushCommitButton->setVisible(true);
 
     }
+}
+
+void MainWindow::updateTableModel()
+{
+if (_browser->tableviewmodel!=nullptr)
+ui->tableView->setModel(_browser->tableviewmodel); // Update tableview
+}
+
+
+/************* CONNECT SIGNALS AND SLOTS **************************/
+void MainWindow::setSettingsSlot(int strategy)
+{
+    _strategysetting=strategy;
+    _browser->strategySetting(strategy);
+    setViewSettings(_strategysetting);
+
+
+    switch (strategy)
+    {
+
+    case 1: ui->labelStrategy->setText("OnFieldChange");
+            return;
+
+    case 2: ui->labelStrategy->setText("OnRowChange");
+            return;
+
+    case 3: ui->labelStrategy->setText("OnManualSubmit");
+            return;
+    }
 
 }
+
+/******* CONNENCT END OF SIGNALS AND SLOTS **************************/
+
+
 
 

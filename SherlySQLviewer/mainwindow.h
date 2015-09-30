@@ -19,8 +19,6 @@ public:
     ~MainWindow();
     QString sqlfilename;
 
-    int strategy() const { return _radioselectedstrategy; }
-
 private:
 
     Browser* _browser;
@@ -28,7 +26,8 @@ private:
 
     int _radioselectedstrategy;
     bool _openwindow;
-    int strategysetting;
+    int _strategysetting;
+
 
 
 signals:
@@ -54,6 +53,10 @@ private slots:
     void on_checkReadOnly_clicked();
 
     void on_listView_clicked();
+
+    void setViewSettings(int& strategy);
+
+    void updateTableModel();
 };
 
 #endif // MAINWINDOW_H
