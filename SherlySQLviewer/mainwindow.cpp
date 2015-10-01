@@ -49,24 +49,29 @@ MainWindow::on_actionOpen_triggered()
                 "db (*.db);;SQLite (*.SQLite)"              // default posible file extension
                 );
 
+    if (!sqlfilename.isEmpty()){
+
     setWindowTitle ("SQLviewer:  "
                     +sqlfilename);                          // inform user about actual DB directory
 
-    _browser->openDb (sqlfilename);                         // calling function from Browser class
+    _browser->openDatabase (sqlfilename);                         // calling function from Browser class
     statusBar()->showMessage (_browser->actualstatus);      // Path status info | Use always after openDb();
 
     ui->listView->setModel (_browser->tableslistmodel);     //update tables list view
+    }
 }
 
 
 void
 MainWindow::on_pushPushButton_clicked()
 {
-    QString querycommand = ui->editSqlQuery->text();        // read query command from window
+    if (_browser->database.isOpen()){
+        QString querycommand = ui->editSqlQuery->text();        // read query command from window
 
-    _browser->execDb(querycommand);                         // execute query command
-    statusBar()->showMessage(_browser->actualstatus);       // Query status info | Use always after execDb();
-    updateTableModel();
+        _browser->execDatabase(querycommand);                         // execute query command
+        statusBar()->showMessage(_browser->actualstatus);       // Query status info | Use always after execDb();
+        updateTableModel();
+    }
 }
 
 void
@@ -80,6 +85,7 @@ void
 MainWindow::on_actionSettings_triggered()
 {
     emit openSettingsWindowSignal();                        // Signal to open window in editstrategysettings.ui
+    emit setSettingsSignal (_strategysetting);
 }
 
 void
@@ -88,7 +94,7 @@ MainWindow::on_listView_clicked()
 
     _browser->currenttable = ui->listView->currentIndex().data().toString();
 
-    _browser->execDb ("");
+    _browser->execDatabase (NULL);
     statusBar()->showMessage (_browser->actualstatus);                                  // Query status info | Use always after execDb();
 
     ui->groupBoxQueryWhere->setTitle("SELECT * FROM "

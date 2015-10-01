@@ -21,8 +21,8 @@ public:
     QString actualstatus;
     QString currenttable;
 
-    void execDb             (const QString & command);
-    void openDb             (QString & path);
+    void execDatabase       (const QString & command);
+    void openDatabase       (QString & path);
     void strategySetting    (int strategysetting);
 
 private:

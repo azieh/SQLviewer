@@ -20,6 +20,9 @@ public:
     Ui::EditStrategySettings *ui;
 
 private:
+
+    void    _radioButtonUpdate(int strategy);
+
     int     _radioselectedstrategy;
 
 signals:
@@ -31,10 +34,6 @@ public slots:
 
 private slots:
     void    on_buttonBox_accepted   ();
-
-
-
-
 };
 
 #endif // EDITSTRATEGYSETTINGS_H

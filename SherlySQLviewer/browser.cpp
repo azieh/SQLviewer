@@ -16,11 +16,17 @@ Browser::Browser() :
 Browser::~Browser()
 {
    database.close();
+
+   delete tableslistmodel;
+   tableslistmodel = nullptr;
+
+   delete tableviewmodel;
+   tableviewmodel = nullptr;
 }
 
 
 void
-Browser::openDb(QString& path)
+Browser::openDatabase(QString& path)
 {
     if (database.isOpen ())
         database.close ();
@@ -43,7 +49,7 @@ Browser::openDb(QString& path)
 }
 
 void
-Browser::execDb(const QString& command)
+Browser::execDatabase(const QString& command)
 {
     if( tableviewmodel != nullptr ){
         delete tableviewmodel;

@@ -7,12 +7,30 @@ EditStrategySettings::EditStrategySettings(QWidget *parent) :
     ui(new Ui::EditStrategySettings)
 {
     ui->setupUi (this);
-    ui->radioManualSubmit->setChecked (true);
 }
 
 EditStrategySettings::~EditStrategySettings()
 {
     delete ui;
+    ui = nullptr;
+}
+
+void
+EditStrategySettings::_radioButtonUpdate(int strategy)
+{
+    switch (strategy) {
+    case 1:
+        ui->radioFieldChange->setChecked    (true);
+        break;
+
+    case 2:
+        ui->radioRowChange->setChecked      (true);
+        break;
+
+    case 3:
+        ui->radioManualSubmit->setChecked   (true);
+        break;
+    }
 }
 
 void
@@ -30,29 +48,11 @@ EditStrategySettings::on_buttonBox_accepted()
     emit setSettingsSignal (_radioselectedstrategy);
 }
 
-
 /****************** CONNECT SIGNALS AND SLOTS **************************/
 void
 EditStrategySettings::setSettingsSlot(int strategy)
 {
-    switch (strategy) {
-    case 1:
-        ui->radioFieldChange->setChecked    (true);
-        break;
-
-    case 2:
-        ui->radioRowChange->setChecked      (true);
-        break;
-
-    case 3:
-        ui->radioManualSubmit->setChecked   (true);
-        break;
-
-    default:
-        ui->radioManualSubmit->setChecked   (true);
-        break;
-
-    }
+    _radioButtonUpdate (strategy);
 }
 
 void
@@ -62,3 +62,5 @@ EditStrategySettings::openSettingsWindowSlot()
 }
 
 /************ END OF CONNECT SIGNALS AND SLOTS **************************/
+
+
