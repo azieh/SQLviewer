@@ -3,7 +3,6 @@
 
 #include <QDialog>
 
-
 namespace Ui {
 class EditStrategySettings;
 }
@@ -14,27 +13,24 @@ class EditStrategySettings : public QDialog
 
 public:
 
-
-
     explicit EditStrategySettings(QWidget *parent = 0);
+
     ~EditStrategySettings();
 
     Ui::EditStrategySettings *ui;
 
-    int strategy() const { return _radioselectedstrategy; }
-
 private:
-    int _radioselectedstrategy;
+    int     _radioselectedstrategy;
 
 signals:
-    void setSettingsSignal(int newstrategy);
+    void    setSettingsSignal       (int newstrategy);
 
 public slots:
-    void setSettingsSlot(int strategy);
-    void openSettingsWindowSlot();
+    void    setSettingsSlot         (int strategy);
+    void    openSettingsWindowSlot  ();
 
 private slots:
-    void on_buttonBox_accepted();
+    void    on_buttonBox_accepted   ();
 
 
 

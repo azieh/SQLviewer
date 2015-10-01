@@ -13,22 +13,17 @@ MainWindow::MainWindow(Browser* browser,  QWidget *parent) :
     _browser( browser ),
     ui(new Ui::MainWindow)
 {
-    setWindowIcon(QIcon(":/ico/icoSherly.png")); //set Sher.ly ico to main window
+    setWindowIcon (QIcon (":/ico/icoSherly.png"));                  //set Sher.ly ico to main window
 
-    ui->setupUi(this);
+    ui->setupUi (this);
+    ui->tableView->setAlternatingRowColors (true);                  //set colours of tableview
+    ui->editSqlQuery->setPlaceholderText ("ex.: City = 'Krakow'");  //example query write to help
+    ui->pushCommitButton->setVisible (false);                       //hide Commit button | set Visible after disable option READ ONLY
 
-    ui->tableView->setAlternatingRowColors(true); //set colours of tableview
+    statusBar()->showMessage (tr ("Load DB file"));                 // set first information for user
 
-    ui->editSqlQuery->setPlaceholderText("ex.: City = 'Krakow'"); //example query write to help
-
-    ui->pushCommitButton->setVisible(false); //hide Commit button | set Visible after disable option READ ONLY
-
-    statusBar()->showMessage(tr("Load DB file")); // set first information for user
-
-    //ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-    _strategysetting=3;
-    setSettingsSlot(_strategysetting);
+    _strategysetting = 3;
+    setSettingsSlot (_strategysetting);
 
 
 }
@@ -38,120 +33,132 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_actionExit_triggered()
+void
+MainWindow::on_actionExit_triggered()
 {
-    exit(0);
+    exit (0);
 }
 
-void MainWindow::on_actionOpen_triggered()
+void
+MainWindow::on_actionOpen_triggered()
 {
-    sqlfilename=QFileDialog::getOpenFileName(
-               this,
-               tr("Open file"),
-               "C://", // default open directory
-               "db (*.db);;SQLite (*.SQLite)" // default posible file extension
-               );
-    setWindowTitle("SQLviewer:  "+sqlfilename); //inform user about actual DB directory
+    sqlfilename = QFileDialog::getOpenFileName(
+                this,
+                tr ("Open file"),
+                "C://",                                     // default open directory
+                "db (*.db);;SQLite (*.SQLite)"              // default posible file extension
+                );
 
-    _browser->openDb(sqlfilename); //calling function from Browser class
+    setWindowTitle ("SQLviewer:  "
+                    +sqlfilename);                          // inform user about actual DB directory
 
-    ui->listView->setModel(_browser->tableslistmodel); //update tables list view
+    _browser->openDb (sqlfilename);                         // calling function from Browser class
+    statusBar()->showMessage (_browser->actualstatus);      // Path status info | Use always after openDb();
 
-    statusBar()->showMessage(_browser->actualstatus); // Path status info | Use always after openDb();
+    ui->listView->setModel (_browser->tableslistmodel);     //update tables list view
 }
 
 
-void MainWindow::on_pushPushButton_clicked()
+void
+MainWindow::on_pushPushButton_clicked()
 {
-    QString querycommand=ui->editSqlQuery->text(); //read query command from window
+    QString querycommand = ui->editSqlQuery->text();        // read query command from window
 
-    _browser->execDb(querycommand); //execute query command
-    statusBar()->showMessage(_browser->actualstatus); // Query status info | Use always after execDb();
+    _browser->execDb(querycommand);                         // execute query command
+    statusBar()->showMessage(_browser->actualstatus);       // Query status info | Use always after execDb();
     updateTableModel();
 }
 
-void MainWindow::on_pushCommitButton_clicked()
+void
+MainWindow::on_pushCommitButton_clicked()                   //commit all changes in database
 {
     if (_browser->tableviewmodel!=nullptr)
-    _browser->tableviewmodel->submitAll();
+        _browser->tableviewmodel->submitAll();
 }
 
-void MainWindow::on_actionSettings_triggered()
+void
+MainWindow::on_actionSettings_triggered()
 {
-     emit openSettingsWindowSignal(); // Signal to open window in editstrategysettings.ui
+    emit openSettingsWindowSignal();                        // Signal to open window in editstrategysettings.ui
 }
 
-void MainWindow::on_listView_clicked()
+void
+MainWindow::on_listView_clicked()
 {
 
-   _browser->currenttable=ui->listView->currentIndex().data().toString();
+    _browser->currenttable = ui->listView->currentIndex().data().toString();
 
-   _browser->execDb("");
-   statusBar()->showMessage(_browser->actualstatus); // Query status info | Use always after execDb();
+    _browser->execDb ("");
+    statusBar()->showMessage (_browser->actualstatus);                                  // Query status info | Use always after execDb();
 
-   updateTableModel();
+    ui->groupBoxQueryWhere->setTitle("SELECT * FROM "
+                                     +_browser->currenttable+" WHERE");                 //tool to help user understand query
 
-   ui->groupBoxQueryWhere->setTitle("SELECT * FROM "+_browser->currenttable+" WHERE"); //tool to help user understand query
+    updateTableModel();
 
 }
 
-void MainWindow::on_checkReadOnly_clicked()
+void
+MainWindow::on_checkReadOnly_clicked()
 {
- setViewSettings(_strategysetting);
+    setViewSettings (_strategysetting);
 }
 
-void MainWindow::setViewSettings(int& strategy)
+void
+MainWindow::setViewSettings(int& strategy)
 {
-    if (ui->checkReadOnly->isChecked())
-    {
-        ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    if (ui->checkReadOnly->isChecked()){
+        ui->tableView->setEditTriggers  (QAbstractItemView::NoEditTriggers);
+        ui->listView->setEditTriggers   (QAbstractItemView::NoEditTriggers);
         ui->pushCommitButton->setVisible(false);
     }
 
-    if (!ui->checkReadOnly->isChecked())
-    {
-        ui->tableView->setEditTriggers(QAbstractItemView::DoubleClicked);
-        ui->listView->setEditTriggers(QAbstractItemView::DoubleClicked);
-        if(strategy!=3)
-            ui->pushCommitButton->setVisible(false);
+    if (!ui->checkReadOnly->isChecked()){
+        ui->tableView->setEditTriggers  (QAbstractItemView::DoubleClicked);
+        ui->listView->setEditTriggers   (QAbstractItemView::DoubleClicked);
+
+        if (strategy != 3)
+            ui->pushCommitButton->setVisible (false);
         else
-            ui->pushCommitButton->setVisible(true);
+            ui->pushCommitButton->setVisible (true);
 
     }
 }
 
-void MainWindow::updateTableModel()
+void
+MainWindow::updateTableModel()
 {
-if (_browser->tableviewmodel!=nullptr)
-ui->tableView->setModel(_browser->tableviewmodel); // Update tableview
+    if (_browser->tableviewmodel != nullptr)
+        ui->tableView->setModel (_browser->tableviewmodel); // Update tableview
 }
 
 
 /************* CONNECT SIGNALS AND SLOTS **************************/
 void MainWindow::setSettingsSlot(int strategy)
 {
-    _strategysetting=strategy;
-    _browser->strategySetting(strategy);
-    setViewSettings(_strategysetting);
+    _strategysetting = strategy;
+    _browser->strategySetting (strategy);
+    setViewSettings (_strategysetting);
 
 
-    switch (strategy)
-    {
+    switch (strategy){
+    case 1:
+        ui->labelStrategy->setText      ("OnFieldChange");
+        break;
 
-    case 1: ui->labelStrategy->setText("OnFieldChange");
-            return;
+    case 2:
+        ui->labelStrategy->setText      ("OnRowChange");
+        return;
 
-    case 2: ui->labelStrategy->setText("OnRowChange");
-            return;
-
-    case 3: ui->labelStrategy->setText("OnManualSubmit");
-            return;
+    case 3: ui->labelStrategy->setText  ("OnManualSubmit");
+        return;
     }
 
 }
 
 /******* CONNENCT END OF SIGNALS AND SLOTS **************************/
+
+
 
 
 

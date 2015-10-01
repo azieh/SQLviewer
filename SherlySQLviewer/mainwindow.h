@@ -17,46 +17,46 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(Browser* _browser, QWidget *parent = 0);
     ~MainWindow();
-    QString sqlfilename;
+    QString     sqlfilename;
 
 private:
 
-    Browser* _browser;
-    Ui::MainWindow *ui;
+    Browser*        _browser;
+    Ui::MainWindow  *ui;
 
-    int _radioselectedstrategy;
-    bool _openwindow;
-    int _strategysetting;
+    bool        _openwindow;
+    int         _radioselectedstrategy;
+    int         _strategysetting;
 
 
 
 signals:
 
-    void setSettingsSignal(int newstrategy);
-    void openSettingsWindowSignal();
+    void setSettingsSignal          (int newstrategy);
+    void openSettingsWindowSignal   ();
 
 public slots:
 
-    void setSettingsSlot(int strategy);
+    void setSettingsSlot            (int strategy);
 
 private slots:
-    void on_actionExit_triggered();
+    void on_actionExit_triggered    ();
 
-    void on_actionOpen_triggered();
+    void on_actionOpen_triggered    ();
 
-    void on_pushPushButton_clicked();
+    void on_pushPushButton_clicked  ();
 
     void on_pushCommitButton_clicked();
 
     void on_actionSettings_triggered();
 
-    void on_checkReadOnly_clicked();
+    void on_checkReadOnly_clicked   ();
 
-    void on_listView_clicked();
+    void on_listView_clicked        ();
 
-    void setViewSettings(int& strategy);
+    void setViewSettings            (int& strategy);
 
-    void updateTableModel();
+    void updateTableModel           ();
 };
 
 #endif // MAINWINDOW_H
