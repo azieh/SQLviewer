@@ -24,6 +24,7 @@ private:
     void    _radioButtonUpdate(int strategy);
 
     int     _radioselectedstrategy;
+    int     _strategy;
 
 signals:
     void    setSettingsSignal       (int newstrategy);

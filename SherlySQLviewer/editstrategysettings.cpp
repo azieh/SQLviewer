@@ -36,6 +36,7 @@ EditStrategySettings::_radioButtonUpdate(int strategy)
 void
 EditStrategySettings::on_buttonBox_accepted()
 {
+
     if (ui->radioFieldChange->isChecked())
         _radioselectedstrategy = 1;
 
@@ -45,7 +46,8 @@ EditStrategySettings::on_buttonBox_accepted()
     if (ui->radioManualSubmit->isChecked())
         _radioselectedstrategy = 3;
 
-    emit setSettingsSignal (_radioselectedstrategy);
+    if (_strategy != _radioselectedstrategy)
+        emit setSettingsSignal (_radioselectedstrategy);
 }
 
 /****************** CONNECT SIGNALS AND SLOTS **************************/
@@ -53,6 +55,7 @@ void
 EditStrategySettings::setSettingsSlot(int strategy)
 {
     _radioButtonUpdate (strategy);
+    _strategy=strategy;
 }
 
 void
