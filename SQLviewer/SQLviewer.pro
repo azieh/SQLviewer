@@ -31,5 +31,4 @@ FORMS    += mainwindow.ui \
 RESOURCES += \
     res.qrc
 
-DISTFILES += \
-    ../build-SherlySQLviewer-Desktop_Qt_5_4_2_MinGW_32bit-Debug/Makefile.Debug
+

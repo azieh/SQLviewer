@@ -1,8 +1,8 @@
 <RCC>
     <qresource prefix="/ico">
-        <file>icoSherly.png</file>
         <file>close_sq.ico</file>
         <file>open_256.png</file>
         <file>settings.png</file>
+        <file>logo.jpg</file>
     </qresource>
 </RCC>

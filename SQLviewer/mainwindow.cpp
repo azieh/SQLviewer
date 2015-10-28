@@ -13,7 +13,7 @@ MainWindow::MainWindow(Browser* browser,  QWidget *parent) :
     _browser( browser ),
     ui(new Ui::MainWindow)
 {
-    setWindowIcon (QIcon (":/ico/icoSherly.png"));                  //set Sher.ly ico to main window
+    setWindowIcon (QIcon (":/ico/logo.jpg"));                  //set Sher.ly ico to main window
 
     ui->setupUi (this);
     ui->tableView->setAlternatingRowColors (true);                  //set colours of tableview
