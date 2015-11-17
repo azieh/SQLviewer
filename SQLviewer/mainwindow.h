@@ -57,6 +57,8 @@ private slots:
     void setViewSettings            (int& strategy);
 
     void updateTableModel           ();
+
+    void keyPressEvent(QKeyEvent *event);
 };
 
 #endif // MAINWINDOW_H
