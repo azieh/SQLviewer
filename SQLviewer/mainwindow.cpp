@@ -13,7 +13,7 @@ MainWindow::MainWindow(Browser* browser,  QWidget *parent) :
     _browser( browser ),
     ui(new Ui::MainWindow)
 {
-    setWindowIcon (QIcon (":/ico/logo.jpg"));                  //set Sher.ly ico to main window
+    setWindowIcon (QIcon (":/ico/SQL.ico"));                  //set Sher.ly ico to main window
 
     ui->setupUi (this);
     ui->tableView->setAlternatingRowColors (true);                  //set colours of tableview
@@ -46,18 +46,17 @@ MainWindow::on_actionOpen_triggered()
                 this,
                 tr ("Open file"),
                 "C://",                                     // default open directory
-                "db (*.db);;SQLite (*.SQLite)"              // default posible file extension
+                "SQLite (*.SQLite)"              // default posible file extension
                 );
 
     if (!sqlfilename.isEmpty()){
 
-    setWindowTitle ("SQLviewer:  "
-                    +sqlfilename);                          // inform user about actual DB directory
+        setWindowTitle ("SQLviewer:  "
+                        +sqlfilename);                          // inform user about actual DB directory
 
-    _browser->openDatabase (sqlfilename);                         // calling function from Browser class
-    statusBar()->showMessage (_browser->actualstatus);      // Path status info | Use always after openDb();
-
-    ui->listView->setModel (_browser->tableslistmodel);     //update tables list view
+        _browser->openDatabase (sqlfilename);                         // calling function from Browser class
+        statusBar()->showMessage (_browser->actualstatus);      // Path status info | Use always after openDb();
+        ui->listView->setModel (_browser->tableslistmodel);     //update tables list view
     }
 }
 
